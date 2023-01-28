@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+ bitcoin-core:
+  image: ruimarinho/bitcoin-core:23.0
+  container_name: bitcoind
+  command:
+   -printtoconsole
+   -conf=/home/bitcoin/conf/bitcoin.conf
+  ports:
+   - "8332:8332"
+   - "28332:28332"
+   - "8333:8333"
+  volumes:
+   - ./data:/home/bitcoin/.bitcoin
+   - ./conf:/home/bitcoin/conf

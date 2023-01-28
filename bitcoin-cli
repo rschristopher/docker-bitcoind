@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$(docker ps -q -f name=bitcoind)" = "" ]; then
+  >&2 echo "bitcoind is not running"
+  >&2 echo "you might want to run 'make'"
+  exit 1
+fi
+
+if [ $# -eq 0 ]; then
+  echo "Run any bitcoin-cli RPC command, for help, see"
+  echo "https://developer.bitcoin.org/reference/rpc/index.html"
+  exit
+fi
+
+docker exec --user bitcoin bitcoind bitcoin-cli $@
