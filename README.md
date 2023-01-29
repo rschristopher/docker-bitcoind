@@ -92,7 +92,7 @@ curl --user foo:bar --data-binary '{"jsonrpc": "1.0", "id": "curltest", "method"
 And then `listwallets`,
 
 ```
-bitcoin-cli.sh listwallets
+bitcoin-cli listwallets
 [
     "wallet"
 ]
@@ -101,7 +101,7 @@ bitcoin-cli.sh listwallets
 And `getwalletinfo`,
 
 ```
-bitcoin-cli.sh getwalletinfo
+bitcoin-cli getwalletinfo
 {
   "walletname": "wallet",
   "walletversion": 169900,
@@ -128,14 +128,14 @@ bitcoin-cli.sh getwalletinfo
 You can get a new address,
 
 ```
-bitcoin-cli.sh getnewaddress
+bitcoin-cli getnewaddress
 
 ```
 
 And even dump your private key,
 
 ```
-bitcoin-cli.sh dumpprivkey "bc1qam7wptd8zcuqqz5awqdygn6qauy9vrxmeff95j"
+bitcoin-cli dumpprivkey "bc1qam7wptd8zcuqqz5awqdygn6qauy9vrxmeff95j"
 
 ```
 
