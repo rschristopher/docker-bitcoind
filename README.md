@@ -2,8 +2,9 @@
 
 Full Bitcoin node that can run locally or in any container orchestration.
 
-See [blockstream.info](https://blockstream.info/) for a good block explorer.
-
+Runs [Fulcrum](https://github.com/cculianu/Fulcrum)
+ and optionally
+ [mempool.space](https://github.com/mempool/mempool)
 
 
 
