@@ -3,6 +3,7 @@ services:
  bitcoin-core:
   image: ruimarinho/bitcoin-core:23.0
   container_name: bitcoind
+  restart: unless-stopped
   command:
    -printtoconsole
    -conf=/home/bitcoin/conf/bitcoin.conf
@@ -19,6 +20,7 @@ services:
   container_name: Fulcrum
   depends_on: 
    - bitcoin-core
+  restart: unless-stopped
   command: Fulcrum --ssl 0.0.0.0:50002
                    --tcp 0.0.0.0:50001
                    --bitcoind bitcoind:8332
