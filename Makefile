@@ -6,10 +6,12 @@ export
 
 bitcoind:
 	mkdir -p data
+	mkdir -p fulcrum-data
 	docker-compose up
 
 clean:
 	rm -rf data
+	rm -rf fulcrum-data
 	docker system prune -af
 
 attach:

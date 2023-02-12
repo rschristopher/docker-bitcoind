@@ -13,3 +13,21 @@ services:
   volumes:
    - ./data:/home/bitcoin/.bitcoin
    - ./conf:/home/bitcoin/conf
+
+ Fulcrum:
+  image: cculianu/fulcrum:latest
+  container_name: Fulcrum
+  depends_on: 
+   - bitcoin-core
+  command: Fulcrum --ssl 0.0.0.0:50002
+                   --tcp 0.0.0.0:50001
+                   --bitcoind bitcoind:8332
+                   --rpcuser foo
+                   --rpcpassword bar
+                   --fast-sync 2048
+  volumes:
+   - ./fulcrum-data:/data
+  ports:
+   - 127.0.0.1:50001:50001
+   - 50002:50002
+
