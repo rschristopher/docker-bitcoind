@@ -15,11 +15,19 @@ services:
       - 80:8080
   api:
     environment:
-      MEMPOOL_BACKEND: "none"
-      CORE_RPC_HOST: "172.27.0.1"
+      MEMPOOL_BACKEND: "electrum"
+      ELECTRUM_HOST: "host.docker.internal"
+      ELECTRUM_PORT: "50001"
+      ELECTRUM_TLS_ENABLED: "false"
+      #MEMPOOL_BACKEND: "none"
+      CORE_RPC_HOST: "host.docker.internal"
       CORE_RPC_PORT: "8332"
       CORE_RPC_USERNAME: "foo"
       CORE_RPC_PASSWORD: "bar"
+      SECOND_CORE_RPC_HOST: "host.docker.internal"
+      SECOND_CORE_RPC_PORT: "8332"
+      SECOND_CORE_RPC_USERNAME: "foo"
+      SECOND_CORE_RPC_PASSWORD: "bar"
       DATABASE_ENABLED: "true"
       DATABASE_HOST: "db"
       DATABASE_DATABASE: "mempool"

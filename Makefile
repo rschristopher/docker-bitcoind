@@ -1,13 +1,19 @@
-.PHONY: bitcoind clean attach curl_test getblockchaininfo getmininginfo
+.PHONY: all bitcoind Fulcrum clean attach curl_test getblockchaininfo getmininginfo
 UID := $(shell id -u)
 GID := $(shell id -g)
 export
 
 
+all: bitcoind Fulcrum
+
+
 bitcoind:
 	mkdir -p data
+	docker-compose up bitcoin-core
+
+Fulcrum:
 	mkdir -p fulcrum-data
-	docker-compose up
+	docker-compose up Fulcrum
 
 clean:
 	rm -rf data
