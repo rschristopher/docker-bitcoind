@@ -1,6 +1,7 @@
 version: '3.8'
 services:
- bitcoin-core:
+
+ bitcoind:
   image: ruimarinho/bitcoin-core:23.0
   container_name: bitcoind
   restart: unless-stopped
@@ -9,8 +10,9 @@ services:
    -conf=/home/bitcoin/conf/bitcoin.conf
   ports:
    - "8332:8332"
-   - "28332:28332"
    - "8333:8333"
+   - "28332:28332"
+   - "28333:28333"
   volumes:
    - ./data:/home/bitcoin/.bitcoin
    - ./conf:/home/bitcoin/conf
@@ -19,8 +21,8 @@ services:
   image: cculianu/fulcrum:v1.9.0
   container_name: Fulcrum
   depends_on: 
-   - bitcoin-core
-  #restart: unless-stopped
+   - bitcoind
+  restart: unless-stopped
   command: Fulcrum --ssl 0.0.0.0:50002
                    --tcp 0.0.0.0:50001
                    --bitcoind bitcoind:8332
@@ -32,4 +34,17 @@ services:
   ports:
    - 127.0.0.1:50001:50001
    - 50002:50002
+
+ lnd:
+   image: lightninglabs/lnd:v0.15.5-beta
+   container_name: lnd
+   command:
+     - "--configfile=/root/.lnd/lnd.conf"
+   restart: unless-stopped
+   volumes:
+     - ./lnd:/root/.lnd
+   ports:
+     - '8080:8080'
+     - '10009:10009'
+     - '9735:9735'
 

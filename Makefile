@@ -1,27 +1,38 @@
-.PHONY: all bitcoind Fulcrum clean attach curl_test getblockchaininfo getmininginfo
+.PHONY: all bitcoind Fulcrum lnd clean attach attach-lnd curl_test getblockchaininfo getmininginfo
 UID := $(shell id -u)
 GID := $(shell id -g)
 export
 
 
-all: bitcoind Fulcrum
+all: bitcoind Fulcrum lnd
 
 
 bitcoind:
 	mkdir -p data
-	docker-compose up bitcoin-core
+	docker-compose up -d bitcoind
 
 Fulcrum:
 	mkdir -p fulcrum-data
-	docker-compose up Fulcrum
+	docker-compose up -d Fulcrum
+
+lnd:
+	mkdir -p lnd
+	docker-compose up -d lnd
+
+stop:
+	docker-compose down --remove-orphans
 
 clean:
 	rm -rf data
 	rm -rf fulcrum-data
+	rm -rf lnd
 	docker system prune -af
 
 attach:
 	docker exec -it bitcoind bash
+
+attach-lnd:
+	docker exec -it lnd bash
 
 curl_test:
 	curl -u foo:bar --data-binary '{"jsonrpc":"1.0","id":"curltext","method":"getblockchaininfo","params":[]}' http://127.0.0.1:8332/

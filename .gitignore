@@ -1,5 +1,6 @@
 *.swp
 data
+lnd
 fulcrum-data*
 mempool.space/data
 mempool.space/mysql
