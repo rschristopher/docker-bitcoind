@@ -1,13 +1,12 @@
-.PHONY: mempool clean attach
+.PHONY: mempool stop logs clean attach
 UID := $(shell id -u)
 GID := $(shell id -g)
 export
 
 
 mempool:
-	mkdir -p data
-	chmod 777 data
-	mkdir -p mysql
+	mkdir -p cache
+	chmod 777 cache
 	docker-compose up -d
 
 stop:

@@ -48,13 +48,13 @@ services:
       LND_REST_API_URL: "https://host.docker.internal:8080"
     image: mempool/backend:latest
     container_name: mempool.api
-    user: "1000:1000"
+    # user: "1000:1000"
     restart: on-failure
     stop_grace_period: 1m
     command: "./wait-for-it.sh db:3306 --timeout=720 --strict -- ./start.sh"
     volumes:
       - ../lnd:/backend/.lnd:ro
-      - ./data:/backend/cache
+      - ./cache:/backend/cache
   db:
     environment:
       MYSQL_DATABASE: "mempool"
