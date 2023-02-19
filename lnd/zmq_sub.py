@@ -48,7 +48,7 @@ class ZMQHandler():
         self.zmqSubSocket.setsockopt_string(zmq.SUBSCRIBE, "rawblock")
         self.zmqSubSocket.setsockopt_string(zmq.SUBSCRIBE, "rawtx")
         self.zmqSubSocket.setsockopt_string(zmq.SUBSCRIBE, "sequence")
-        self.zmqSubSocket.connect("tcp://127.0.0.1:%i" % port)
+        self.zmqSubSocket.connect("tcp://bitcoind:%i" % port)
 
     async def handle(self) :
         topic, body, seq = await self.zmqSubSocket.recv_multipart()
@@ -77,6 +77,7 @@ class ZMQHandler():
         asyncio.ensure_future(self.handle())
 
     def start(self):
+        print(f"listening for events on port {port}")
         self.loop.add_signal_handler(signal.SIGINT, self.stop)
         self.loop.create_task(self.handle())
         self.loop.run_forever()

@@ -38,13 +38,20 @@ services:
  lnd:
    image: lightninglabs/lnd:v0.15.5-beta
    container_name: lnd
+   depends_on: 
+     - bitcoind
    command:
      - "--configfile=/root/.lnd/lnd.conf"
    restart: unless-stopped
    volumes:
      - ./lnd:/root/.lnd
+     - ./data:/root/.bitcoin:ro
+     - ./conf:/root/conf:ro
    ports:
      - '8080:8080'
      - '10009:10009'
      - '9735:9735'
 
+networks:
+  default:
+    name: rschristopher

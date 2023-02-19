@@ -1,4 +1,4 @@
-.PHONY: all bitcoind Fulcrum lnd clean attach attach-lnd curl_test getblockchaininfo getmininginfo
+.PHONY: all bitcoind Fulcrum lnd stop logs clean attach attach-lnd curl_test getblockchaininfo getmininginfo
 UID := $(shell id -u)
 GID := $(shell id -g)
 export
@@ -21,6 +21,18 @@ lnd:
 
 stop:
 	docker-compose down --remove-orphans
+
+logs:
+	docker-compose logs -f
+
+logs-bitcoind:
+	docker-compose logs bitcoind -f
+
+logs-Fulcrum:
+	docker-compose logs Fulcrum -f
+
+logs-lnd:
+	docker-compose logs lnd -f
 
 clean:
 	rm -rf data

@@ -1,10 +1,11 @@
-version: "3.7"
+version: "3.8"
 
 services:
   web:
     environment:
       FRONTEND_HTTP_PORT: "8080"
       BACKEND_MAINNET_HTTP_HOST: "api"
+      LIGHTNING: "true"
     image: mempool/frontend:latest
     container_name: mempool.web
     user: "1000:1000"
@@ -34,6 +35,17 @@ services:
       DATABASE_USERNAME: "mempool"
       DATABASE_PASSWORD: "mempool"
       STATISTICS_ENABLED: "true"
+      LIGHTNING_ENABLED: "true"
+      LIGHTNING_BACKEND: "lnd"
+      LIGHTNING_TOPOLOGY_FOLDER: "/backend/cache/topology"
+      LIGHTNING_STATS_REFRESH_INTERVAL: 600
+      LIGHTNING_GRAPH_REFRESH_INTERVAL: 600
+      LIGHTNING_LOGGER_UPDATE_INTERVAL: 30
+      # NODE_EXTRA_CA_CERTS: ""
+      NODE_TLS_REJECT_UNAUTHORIZED: 0
+      LND_TLS_CERT_PATH: "/backend/.lnd/tls.cert"
+      LND_MACAROON_PATH: "/backend/.lnd/data/chain/bitcoin/mainnet/readonly.macaroon"
+      LND_REST_API_URL: "https://host.docker.internal:8080"
     image: mempool/backend:latest
     container_name: mempool.api
     user: "1000:1000"
@@ -41,6 +53,7 @@ services:
     stop_grace_period: 1m
     command: "./wait-for-it.sh db:3306 --timeout=720 --strict -- ./start.sh"
     volumes:
+      - ../lnd:/backend/.lnd:ro
       - ./data:/backend/cache
   db:
     environment:
