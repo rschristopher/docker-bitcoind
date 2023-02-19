@@ -2,5 +2,5 @@
 data
 lnd
 fulcrum-data*
-mempool.space/data
+mempool.space/cache
 mempool.space/mysql
