@@ -18,7 +18,7 @@ logs:
 clean:
 	rm -rf data
 	rm -rf mysql
-	docker system prune -af
+	#docker system prune -af
 
 attach:
 	docker exec -it mempool.api bash
